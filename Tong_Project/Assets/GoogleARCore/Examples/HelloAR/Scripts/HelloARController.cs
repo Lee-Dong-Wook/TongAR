@@ -46,12 +46,12 @@ namespace GoogleARCore.Examples.HelloAR
         public GameObject DetectedPlanePrefab;
 
         /// <summary>
-        /// A model to place when a raycast from a user touch hits a plane.
+        /// 바닥 오브젝트 A model to place when a raycast from a user touch hits a plane.
         /// </summary>
         public GameObject AndyPlanePrefab;
 
         /// <summary>
-        /// A model to place when a raycast from a user touch hits a feature point.
+        /// 포인트 오브젝트  A model to place when a raycast from a user touch hits a feature point.
         /// </summary>
         public GameObject AndyPointPrefab;
 
@@ -77,10 +77,16 @@ namespace GoogleARCore.Examples.HelloAR
         private bool m_IsQuitting = false;
 
         /// <summary>
+        /// Chracter has spawned 
+        /// </summary>
+        private bool isSpawned = false;
+
+        /// <summary>
         /// The Unity Update() method.
         /// </summary>
         public void Update()
         {
+            //아직 상관 하지 말 것 
             _UpdateApplicationLifecycle();
 
             // Hide snackbar when currently tracking at least one plane.
@@ -106,10 +112,11 @@ namespace GoogleARCore.Examples.HelloAR
 
             // Raycast against the location the player touched to search for planes.
             TrackableHit hit;
-            TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon |
-                TrackableHitFlags.FeaturePointWithSurfaceNormal;
+            TrackableHitFlags raycastFilter = TrackableHitFlags.PlaneWithinPolygon | TrackableHitFlags.FeaturePointWithSurfaceNormal;
 
-            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit))
+            
+
+            if (Frame.Raycast(touch.position.x, touch.position.y, raycastFilter, out hit)) // && isSpawned==false
             {
                 // Use hit pose and camera pose to check if hittest is from the
                 // back of the plane, if it is, no need to create the anchor.
@@ -144,6 +151,8 @@ namespace GoogleARCore.Examples.HelloAR
 
                     // Make Andy model a child of the anchor.
                     andyObject.transform.parent = anchor.transform;
+
+                    //isSpawned = true; 
                 }
             }
         }
