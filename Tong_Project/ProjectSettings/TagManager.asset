@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - DisplayScreen
+  - pet
   layers:
   - Default
   - TransparentFX
