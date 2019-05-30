@@ -1,6 +1,6 @@
 ﻿/// <summary>
 /// 작성 일시  : 2019. 04. 03. 
-/// 수정 일시  : 2019. . .
+/// 수정 일시  : 2019. 05. 09. 
 /// 수정자     : 이동욱 
 /// e-mail : dongwookRaynor@gmail.com 
 /// 기능       : AI상태에 따라 오브젝트의 생명관리, 상태에 따라 할 수 있는 동작, 기능 등을 제어  
@@ -33,10 +33,11 @@ public class AIstatus : MonoBehaviour
         }
         else
         {
-            mood -= 0.5f;
-            hunger -= 0.5f;
-            healthy -= 0.5f;
-            Debug.Log(" mood = " + mood + " hunger = " + hunger + " healthy = " + healthy);
+            mood    -= 1f * Time.deltaTime;
+            hunger  -= 1f * Time.deltaTime;
+            healthy -= 1f * Time.deltaTime;
+
+           // Debug.Log(" mood = " + mood + " hunger = " + hunger + " healthy = " + healthy);
         }
     }
 
@@ -46,19 +47,19 @@ public class AIstatus : MonoBehaviour
         if (mood >= 80 || hunger >= 80 || healthy >= 80)
         {
             status = Status.Best;
-            Debug.Log(" Feel Best! ");
+            //Debug.Log(" Feel Best! ");
         }
 
         else if (mood >= 50 || hunger >= 50 || healthy >= 50) 
         {
             status = Status.Good;
-            Debug.Log(" Feel Good! ");
+            //Debug.Log(" Feel Good! ");
         }
 
         else if (mood <= 10 || hunger <= 10 || healthy <= 10)
         {
             status = Status.Bad;
-            Debug.Log(" Feel Bad! ");
+            //Debug.Log(" Feel Bad! ");
         }
     }
 

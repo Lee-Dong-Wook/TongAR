@@ -17,7 +17,14 @@
 //
 // </copyright>
 //-----------------------------------------------------------------------
-
+/// <summary>
+/// 작성 일시 : 2019. . . 
+/// 수정 일시 : 2019. 05. 23.
+/// 수정자 : 이동욱 
+/// e-mail : dongwookRaynor@gmail.com 
+/// 기능    : 인식된 바닥에 대해 격자무늬를 사용해 시작적으로 표현 
+/// </summary>
+/// 
 namespace GoogleARCore.Examples.Common
 {
     using System.Collections.Generic;
@@ -65,6 +72,10 @@ namespace GoogleARCore.Examples.Common
 
         private MeshRenderer m_MeshRenderer;
 
+        private MeshCollider m_meshCollider;
+
+          
+
         /// <summary>
         /// The Unity Awake() method.
         /// </summary>
@@ -72,6 +83,7 @@ namespace GoogleARCore.Examples.Common
         {
             m_Mesh = GetComponent<MeshFilter>().mesh;
             m_MeshRenderer = GetComponent<UnityEngine.MeshRenderer>();
+            m_meshCollider = GetComponent<MeshCollider>();
         }
 
         /// <summary>
@@ -207,6 +219,14 @@ namespace GoogleARCore.Examples.Common
             m_Mesh.SetVertices(m_MeshVertices);
             m_Mesh.SetTriangles(m_MeshIndices, 0);
             m_Mesh.SetColors(m_MeshColors);
+
+            //This cord attaches triangular mesh information to collider.
+            //2019-05-16 이동욱, 수정 및 추가 
+            m_meshCollider.sharedMesh = null;
+            m_meshCollider.sharedMesh = m_Mesh;
+
+            //m_meshCollider.transform.tag = "hitPlane";
+            //GetComponent<MeshCollider>().tag = "hitPlane";
         }
 
         private bool _AreVerticesListsEqual(List<Vector3> firstList, List<Vector3> secondList)

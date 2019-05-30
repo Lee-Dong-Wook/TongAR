@@ -19,7 +19,7 @@
 //-----------------------------------------------------------------------
 /// <summary>
 /// 작성 일시 : 2019. 03. 01. 
-/// 수정 일시 : 2019. 04. 17.
+/// 수정 일시 : 2019. 05. 16.
 /// 수정자 : 이동욱 
 /// e-mail : dongwookRaynor@gmail.com 
 /// 기능    : 카메라에서 실제 지형인식, 원하는 위치에 오브젝트 생성, 생성 후 오브젝트와 상호작용 
@@ -45,83 +45,47 @@ namespace GoogleARCore.Examples.HelloAR
         /// <summary>
         /// The first-person camera being used to render the passthrough camera image (i.e. AR background).
         /// </summary>
-        public Camera FirstPersonCamera;
+        public        Camera       FirstPersonCamera;
 
         /// <summary>
         /// A prefab for tracking and visualizing detected planes.
         /// </summary>
-        public GameObject DetectedPlanePrefab;
+        public        GameObject   DetectedPlanePrefab;
 
         /// <summary>
         /// A model to place when a raycast from a user touch hits a plane.
         /// </summary>
-        public GameObject AlpacaPlanePrefab;
+        public        GameObject   AlpacaPlanePrefab;
 
         /// <summary>
         /// A model to place when a raycast from a user touch hits a feature point.
         /// </summary>
-        public GameObject AlpacaPointPrefab;
+        public        GameObject   AlpacaPointPrefab;
 
+        private       Touch        touch;
         /// <summary>
         /// The rotation in degrees need to apply to model when the Andy model is placed.
         /// </summary>
-        private const float k_ModelRotation = 180.0f;
+        private const float        k_ModelRotation = 180.0f;
 
         /// <summary>
         /// True if the app is in the process of quitting due to an ARCore connection error, otherwise false.
         /// </summary>
-        private bool m_IsQuitting = false;
+        private       bool         m_IsQuitting   = false;
+        private       bool         isSpawned      = false;
 
-        private bool isSpawned = false; 
-
-        private Touch touch;
-
-       // private AIanimController Anim;
-
-        private void Awake()
-        {
-           
-        }
-
-        /// <summary>
-        /// The Unity Update() method.
-        /// </summary>
-        public void Update()
+        
+        private void Update()
         {
             _UpdateApplicationLifecycle();
-
-            Instanciate();            
+           
+            //알파카 생성 
+            Instantiate();    
         }
 
-       //private void Interaction()
-       // {
-       //     //If the player has not touched the screen, we are done with this update.
-       //     if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
-       //     {
-       //         return;
-       //     }
+       
 
-       //     Ray raycast = FirstPersonCamera.ScreenPointToRay(touch.position);
-       //     RaycastHit raycastHit;
-       //     if (Physics.Raycast(raycast, out raycastHit))
-       //     {
-       //         Debug.Log("Something Hit");
-       //         if (raycastHit.collider.tag == "AI")
-       //         {
-       //             Anim.AnimJumpTrue();
-       //             //Anim.GetComponent<AIanimController>().AnimJumpTrue();
-       //             Debug.Log("andy clicked");
-       //         }
-       //     }
-       //     else
-       //     {
-       //         Anim.AnimJumpFalse();
-       //         //Anim.GetComponent<AIanimController>().AnimJumpFalse();
-       //         Debug.Log("No hit detected");
-       //     }
-       // }
-
-        private void Instanciate()
+        private void Instantiate()
         {
             //If the player has not touched the screen, we are done with this update.
             if (Input.touchCount < 1 || (touch = Input.GetTouch(0)).phase != TouchPhase.Began)
@@ -155,7 +119,6 @@ namespace GoogleARCore.Examples.HelloAR
                     {
                         prefab = AlpacaPlanePrefab;
                     }
-
                     // Instantiate Andy model at the hit pose.
                     var andyObject = Instantiate(prefab, hit.Pose.position, hit.Pose.rotation);
 
@@ -169,7 +132,7 @@ namespace GoogleARCore.Examples.HelloAR
 
                     // Make Andy model a child of the anchor.
                     andyObject.transform.parent = anchor.transform;
-
+               
                     isSpawned = true; 
                 }
             }
@@ -185,15 +148,14 @@ namespace GoogleARCore.Examples.HelloAR
             {
                 Application.Quit();
             }
-
-
             /// <summary>
             /// ARCore는 실제 환경에서 사용자의 움직임을 추적하기 위해 충분한 정보를 캡처하고 처리해야 한다. 
             /// ARCore가 추적하면 frame 객체는 ARCore와 상호 작용하기 위해 사용된다.  
             /// 동시에 화면 시간 초과를 조정하여 추적 중이면 계속 유지되도록 한다.
             /// </summary>
             if (Session.Status != SessionStatus.Tracking)                       //Session 상태는 Frame에 접근하기 위해 추적상태가 되어야한다.  
-            {                                                                   //추적하지 않는 상태엔 스크린이 sleep 상태가 된다. 
+            {                                                      
+                //추적하지 않는 상태엔 스크린이 sleep 상태가 된다. 
                 const int lostTrackingSleepTimeout = 15;
                 Screen.sleepTimeout = lostTrackingSleepTimeout;
             }
@@ -251,6 +213,5 @@ namespace GoogleARCore.Examples.HelloAR
                 }));
             }
         }
-
     }
 }
