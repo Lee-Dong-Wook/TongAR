@@ -434,6 +434,7 @@ GameObject:
   - component: {fileID: 8952995054077246629}
   - component: {fileID: 3615643671989967110}
   - component: {fileID: 3449892889593386657}
+  - component: {fileID: 1539861092948758183}
   - component: {fileID: 5472151986746598160}
   m_Layer: 0
   m_Name: Alpaca
@@ -488,7 +489,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -519,6 +520,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c3de710f66c0f4895f0948e5358bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1539861092948758183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244936432145580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd9ad7688105434479452fd3d034a866, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5472151986746598160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,7 +544,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1d2a0eab51620546b0c9de160034899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstPersonCamera: {fileID: 0}
 --- !u!1 &1268956804963694
 GameObject:
   m_ObjectHideFlags: 0
